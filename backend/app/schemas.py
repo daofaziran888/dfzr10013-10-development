@@ -28,6 +28,30 @@ class EntryPayload(BaseModel):
     remark: str | None = None
 
 
+class CompareImportPayload(BaseModel):
+    """同期对比明细导入：items 为逐条明细，batch 可选批次号。"""
+
+    items: list[dict[str, Any]] = Field(default_factory=list)
+    batch: str | None = None
+    source: str | None = None
+    values: dict[str, Any] = Field(default_factory=dict)
+
+
+class CompareCalculatePayload(BaseModel):
+    """同期对比计算参数：可按本次指定对齐方式并记录操作人。"""
+
+    alignment: str | None = None
+    operator: str | None = None
+
+
+class ReportAttachmentPayload(BaseModel):
+    """从同期对比数据集生成报告数据附件。"""
+
+    dataset_id: int = Field(description="对比数据集 id")
+    operator: str | None = None
+    note: str | None = None
+
+
 
 class KpiEntry(BaseModel):
     """经营指标明细结构。"""
